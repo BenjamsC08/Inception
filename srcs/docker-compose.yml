@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  mariadb:
+    build: ./requirements/mariadb/
+    restart: on-failure
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
+      # MARIADB_ROOT_PASSWORD_HASH: "${MARIADB_ROOT_PASSWORD}"  // maybe change for the hash is more secure
+      MARIADB_DATABASE: "${MARIADB_DB_NAME}"
+      MARIADB_USER: "${MARIADB_USER_NAME}"
+      MARIADB_PASSWORD: "${MARIADB_USER_PASSWORD}"
+      # MARIADB_PASSWORD_HASH: "${MARIADB_USER_PASSWORD}"   //same here
+    networks:
+        - WP_Network
+    volumes:
+        - mariadb_data:/var/lib/mysql
+
+  wordpress:
+    depends_on:
+        - mariadb
+    restart: on-failure
+    container_name: wordpress
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: "${MARIADB_USER_NAME}"
+      WORDPRESS_DB_PASSWORD: "${MARIADB_USER_PASSWORD}"
+      WORDPRESS_DB_NAME: "${MARIADB_DB_NAME}"
+    build: ./requirements/wordpress
+    networks:
+        - WP_Network
+    volumes:
+        - wordpress_file:/var/www/html
+
+
+  nginx:
+    build: ./requirements/nginx
+    restart: on-failure
+    container_name: nginx
+    depends_on:
+        - wordpress
+    ports:
+      - "443:443"
+    networks:
+        - WP_Network
+    volumes:
+        - wordpress_file:/var/www/html
+
+
+networks:
+  - WP_Network:
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: 'bind'
+      device: "${MARIADB_DATA_PATH}"
+
+  wordpress_file:
+    driver: local
+    driver_opts:
+      type: none
+      o: 'bind'
+      device: "${WORDPRESS_DATA_PATH}"
+
