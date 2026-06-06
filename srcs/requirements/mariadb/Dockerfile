@@ -1,19 +1,15 @@
-FROM debian:12-slim
-RUN apt update && \
-	apt upgrade -y && \
-	apt install -y mariadb-server && \
-	apt autoclean
+FROM debian:bookworm
 
-EXPOSE 3306
+RUN apt-get update && \
+	apt-get install -y mariadb-server && \
+	apt autoclean  && \	
+    rm -rf /var/lib/apt/lists/*
 
-LABEL version="1.0"
-LABEL description="Mariadb Server for my Wordpress"
+RUN mkdir -p /run/mysqld /var/lib/mysql && \
+    chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
-#copy conf
+COPY tools/init_db.sh /init_db.sh
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+RUN chmod +x /init_db.sh
 
-#copy script
-COPY tools/entrypoint.sh entrypoint.sh
-
-RUN chmod +x entryoint.sh
-
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["./init_db.sh"]
