@@ -35,7 +35,7 @@ the root of the project, all containers need to use a docker-network to comunica
 ## Instructions
 To use this project, you need to install [docker(setup)](https://docs.docker.com/engine/install/) on your computer.
 Clone the repo, go into it.
-first thing you need to set a `.env` file in srcs u can copy `example.env`
+first thing you need to set a `.env` file in srcs u can copy `template.env`
 all variable are into it, you just need to change all fields, and call the file `.env`
 few commands to use Inception:
 - `make`/`make up` will instantiate the projet and run it
