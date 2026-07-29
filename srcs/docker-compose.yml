@@ -15,36 +15,42 @@ services:
     volumes:
         - mariadb_data:/var/lib/mysql
 
-  # wordpress:
-  #   depends_on:
-  #       - mariadb
-  #   restart: on-failure
-  #   container_name: wordpress
-  #   environment:
-  #     WORDPRESS_DB_HOST: mariadb:3306
-  #     WORDPRESS_DB_USER: "${MARIADB_USER_NAME}"
-  #     WORDPRESS_DB_PASSWORD: "${MARIADB_USER_PASSWORD}"
-  #     WORDPRESS_DB_NAME: "${MARIADB_DB_NAME}"
-  #   build: ./requirements/wordpress
-  #   networks:
-  #       - WP_Network
-  #   volumes:
-  #       - wordpress_file:/var/www/html
-  #
-  #
-  # nginx:
-  #   build: ./requirements/nginx
-  #   restart: on-failure
-  #   container_name: nginx
-  #   depends_on:
-  #       - wordpress
-  #   ports:
-  #     - "443:443"
-  #   networks:
-  #       - WP_Network
-  #   volumes:
-  #       - wordpress_file:/var/www/html
-  #
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    restart: on-failure
+    depends_on:
+      - mariadb
+    environment:
+      DOMAIN_NAME: "${DOMAIN_NAME}"
+      WORDPRESS_DB_HOST: "${WORDPRESS_DB_HOST}"
+      WORDPRESS_DB_NAME: "${WORDPRESS_DB_NAME}"
+      WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
+      WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD}"
+      WORDPRESS_ADMIN_USER: "${WORDPRESS_ADMIN_USER}"
+      WORDPRESS_ADMIN_PASSWORD: "${WORDPRESS_ADMIN_PASSWORD}"
+      WORDPRESS_ADMIN_EMAIL: "${WORDPRESS_ADMIN_EMAIL}"
+      WORDPRESS_USER: "${WORDPRESS_USER}"
+      WORDPRESS_USER_EMAIL: "${WORDPRESS_USER_EMAIL}"
+      WORDPRESS_USER_PASSWORD: "${WORDPRESS_USER_PASSWORD}"
+    networks:
+        - WP_Network
+    volumes:
+        - wordpress_file:/var/www/html
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    restart: on-failure
+    depends_on:
+        - wordpress
+    ports:
+      - "443:443"
+    environment:
+      DOMAIN_NAME: "${DOMAIN_NAME}"
+    networks:
+        - WP_Network
+    volumes:
+        - wordpress_file:/var/www/html
 
 networks:
   WP_Network:

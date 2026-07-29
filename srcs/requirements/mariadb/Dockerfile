@@ -12,4 +12,4 @@ COPY tools/init_db.sh /init_db.sh
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 RUN chmod +x /init_db.sh
 
-ENTRYPOINT ["./init_db.sh"]
+ENTRYPOINT ["/init_db.sh"]

@@ -8,7 +8,7 @@ PIDFILE="/run/mysqld/mysqld.pid"
 mkdir -p "$(dirname "${SOCKET}")" "${DATADIR}"
 chown -R mysql:mysql "$(dirname "${SOCKET}")" "${DATADIR}"
 
-initialize_database() {
+init_db() {
     if [ ! -d "${DATADIR}/mysql" ]; then
         echo "Première initialisation de la base de données..."
 		# https://mariadb.com/docs/server/clients-and-utilities/deployment-tools/mariadb-install-db
@@ -53,7 +53,7 @@ start_mariadb() {
         --user=mysql
 }
 
-initialize_database
+init_db
 
 if [ ! -f "${DATADIR}/.initialized" ]; then
     setup_database
