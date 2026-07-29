@@ -23,7 +23,7 @@ the root of the project, all containers need to use a docker-network to comunica
 - volume path will be /home/login/data
 
 ### Overview
-<*** INSERT Screen in data here***>
+![setup](https://github.com/BenjamsC08/incaption/blob/main/Data/Screenshot%20from%202026-07-29%2008-43-11.png)
 
 ### Other points
 #### Virtual machines vs Docker
