@@ -22,8 +22,7 @@ the root of the project, all containers need to use a docker-network to comunica
 - use named volumes, binds mounts are not allowed.
 - volume path will be /home/login/data
 
-### Overview
-![setup](https://github.com/BenjamsC08/incaption/blob/main/Data/Screenshot%20from%202026-07-29%2008-43-11.png)
+### Overviewtertup](https://github.com/BenjamsC08/incaption/blob/main/Data/Screenshot%20from%202026-07-29%2008-43-11.png)
 
 ### Other points
 #### Virtual machines vs Docker
@@ -57,5 +56,5 @@ If you wanna dig more feel free to check
 - [Creating a Dockerfile](https://softchris.github.io/pages/docker-one.html#creating-a-dockerfile)
 - [MariaDb env Var](https://mariadb.com/docs/server/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables#environment-variables)
 ### French
-- [Conteneurisation (plus beaucoup d'infos)](https://blog.stephane-robert.info/docs/conteneurisation/)
+- [Containerization and lot of docker data](https://blog.stephane-robert.info/docs/conteneurisation/)
 
