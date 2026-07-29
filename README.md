@@ -44,8 +44,8 @@ few commands to use Inception:
 - `make stop` will only stopped containers without remove something
 
 If you wanna dig more feel free to check
-- [USER_DOC.md](le lien vers USERDOC)
-- [DEV_DOC.md](le lien vers DevDoc)
+- [USER_DOC.md](https://github.com/BenjamsC08/incaption/blob/main/Data/USER_DOC.md)
+- [DEV_DOC.md](https://github.com/BenjamsC08/incaption/blob/main/Data/DEV_DOC.md)
 
 ## Ressources
 
