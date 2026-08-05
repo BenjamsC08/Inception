@@ -1,18 +1,28 @@
 #!/bin/bash
-set -euo pipefail
+set -eu
 
 DATADIR="/var/lib/mysql"
 SOCKET="/run/mysqld/mysqld.sock"
 PIDFILE="/run/mysqld/mysqld.pid"
+
+if [ ! -f /run/secrets/db_root_password ]; then
+  echo "secret db_root_password not found" >&2
+  exit 1
+fi
+
+if [ ! -f /run/secrets/db_user_password ]; then
+  echo "secret db_user_password not found" >&2
+  exit 1
+fi
+
+MARIADB_ROOT_PASSWORD="$(cat /run/secrets/db_root_password)"
+MARIADB_PASSWORD="$(cat /run/secrets/db_user_password)"
 
 mkdir -p "$(dirname "${SOCKET}")" "${DATADIR}"
 chown -R mysql:mysql "$(dirname "${SOCKET}")" "${DATADIR}"
 
 init_db() {
     if [ ! -d "${DATADIR}/mysql" ]; then
-        echo "Première initialisation de la base de données..."
-		# https://mariadb.com/docs/server/clients-and-utilities/deployment-tools/mariadb-install-db
-		#
         mariadb-install-db --user=mysql --datadir="${DATADIR}" --skip-test-db
     fi
 }

@@ -1,7 +1,26 @@
 #!/bin/bash
-set -e
+set -eu
+# -u : stop if variable not defined
+# -e : stop if command failed
 
-cd /var/www/html
+if [ ! -f /run/secrets/db_user_password ]; then
+  echo "secret db_user_password not found" >&2
+  exit 1
+fi
+
+if [ ! -f /run/secrets/wp_admin_password ]; then
+  echo "secret wp_admin_password not found" >&2
+  exit 1
+fi
+
+if [ ! -f /run/secrets/wp_user_password ]; then
+  echo "secret wp_user_password not found" >&2
+  exit 1
+fi
+
+WORDPRESS_DB_PASSWORD="$(cat /run/secrets/db_user_password)"
+WORDPRESS_ADMIN_PASSWORD="$(cat /run/secrets/wp_admin_password)"
+WORDPRESS_USER_PASSWORD="$(cat /run/secrets/wp_user_password)"
 
 until mysqladmin ping -h"${WORDPRESS_DB_HOST%:*}" -u"${WORDPRESS_DB_USER}" -p"${WORDPRESS_DB_PASSWORD}" --silent; do
 	echo "waiting for mariadb..."

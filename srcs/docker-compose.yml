@@ -1,38 +1,48 @@
+secrets:
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_user_password:
+    file: ../secrets/db_user_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+  wp_user_password:
+    file: ../secrets/wp_user_password.txt
+
 services:
   mariadb:
+    secrets:
+      - db_root_password
+      - db_user_password
     build: ./requirements/mariadb/
     restart: on-failure
     container_name: mariadb
     environment:
-      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
-      # MARIADB_ROOT_PASSWORD_HASH: "${MARIADB_ROOT_PASSWORD}"  // maybe change for the hash is more secure
       MARIADB_DATABASE: "${MARIADB_DB_NAME}"
       MARIADB_USER: "${MARIADB_USER_NAME}"
-      MARIADB_PASSWORD: "${MARIADB_USER_PASSWORD}"
-      # MARIADB_PASSWORD_HASH: "${MARIADB_USER_PASSWORD}"   //same here
     networks:
         - WP_Network
     volumes:
         - mariadb_data:/var/lib/mysql
 
   wordpress:
+    secrets:
+      - db_user_password
+      - wp_admin_password
+      - wp_user_password
     build: ./requirements/wordpress
     container_name: wordpress
     restart: on-failure
     depends_on:
       - mariadb
     environment:
-      DOMAIN_NAME: "${DOMAIN_NAME}"
-      WORDPRESS_DB_HOST: "${WORDPRESS_DB_HOST}"
-      WORDPRESS_DB_NAME: "${WORDPRESS_DB_NAME}"
-      WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
-      WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD}"
-      WORDPRESS_ADMIN_USER: "${WORDPRESS_ADMIN_USER}"
-      WORDPRESS_ADMIN_PASSWORD: "${WORDPRESS_ADMIN_PASSWORD}"
-      WORDPRESS_ADMIN_EMAIL: "${WORDPRESS_ADMIN_EMAIL}"
-      WORDPRESS_USER: "${WORDPRESS_USER}"
-      WORDPRESS_USER_EMAIL: "${WORDPRESS_USER_EMAIL}"
-      WORDPRESS_USER_PASSWORD: "${WORDPRESS_USER_PASSWORD}"
+      DOMAIN_NAME:            "${DOMAIN_NAME}"
+      WORDPRESS_DB_HOST:      "${WORDPRESS_DB_HOST}"
+      WORDPRESS_DB_NAME:      "${WORDPRESS_DB_NAME}"
+      WORDPRESS_DB_USER:      "${WORDPRESS_DB_USER}"
+      WORDPRESS_ADMIN_USER:   "${WORDPRESS_ADMIN_USER}"
+      WORDPRESS_ADMIN_EMAIL:  "${WORDPRESS_ADMIN_EMAIL}"
+      WORDPRESS_USER:         "${WORDPRESS_USER}"
+      WORDPRESS_USER_EMAIL:   "${WORDPRESS_USER_EMAIL}"
     networks:
         - WP_Network
     volumes:
