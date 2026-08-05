@@ -1,3 +1,5 @@
 machin
 srcs/.env
 text
+secrets/
+secrets/*
