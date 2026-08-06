@@ -24,10 +24,10 @@ start:
 	$(COMPOSE) start
 
 clean: down
-    $(COMPOSE) down --rmi all --volumes --remove-orphans
+	$(COMPOSE) down --rmi all --volumes --remove-orphans
 
 fclean: clean
-    sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
+	sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
 
 eval:
 	docker stop $$(docker ps -qa) 2>/dev/null || true

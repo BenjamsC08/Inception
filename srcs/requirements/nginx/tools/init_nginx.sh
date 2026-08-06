@@ -1,8 +1,8 @@
 #!/bin/bash
-set -e
+set -eu
 
 mkdir -p /etc/nginx/ssl
-# Générer un certificat auto-signé si pas présent
+# Create certificate if not already here
 if [ ! -f /etc/nginx/ssl/inception.crt ]; then
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/nginx/ssl/inception.key \

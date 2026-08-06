@@ -38,7 +38,7 @@ setup_database() {
         sleep 1
     done
 
-    # Configuration via variables d’environnement
+    # Configuration via env var
 	# https://mariadb.com/docs/server/reference/plugins/authentication-plugins/authentication-plugin-unix-socket
 	# i init my db with the socket like mariadb 10.1+ want, and change root password when done
 	# and then kill the process rm the sokcet and restart the db
