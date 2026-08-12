@@ -22,7 +22,7 @@ the root of the project, all containers need to use a docker-network to comunica
 - use named volumes, binds mounts are not allowed.
 - volume path will be /home/login/data
 
-### [Overview]([https://github.com/BenjamsC08/incaption/blob/main/Data/Screenshot%20from%202026-07-29%2008-43-11.png](https://github.com/BenjamsC08/incaption/blob/main/data/Screenshot%20from%202026-07-29%2008-43-11.png))
+### [Overview](https://github.com/BenjamsC08/incaption/blob/main/Data/Screenshot%20from%202026-07-29%2008-43-11.png](https://github.com/BenjamsC08/incaption/blob/main/data/Screenshot%20from%202026-07-29%2008-43-11.png)
 
 ### Other points
 #### Virtual machines vs Docker
