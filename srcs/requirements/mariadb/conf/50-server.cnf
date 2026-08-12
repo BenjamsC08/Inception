@@ -1,7 +1,10 @@
 [server]
+skip-ssl
 [mysqld]
 datadir = /var/lib/mysql
 socket = /run/mysqld/mysqld.sock
 bind_address = *
-port = 3306
+port = 33306
 user = mysql
+[client]
+skip-ssl
