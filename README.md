@@ -1,5 +1,5 @@
-*This Project has been created as part of the 42 curriculum by Benjamsc*
 # Inception
+*This Project has been created as part of the 42 curriculum by Benjamsc*
 
 ## Description
 ### Goal
