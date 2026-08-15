@@ -1,12 +1,17 @@
 COMPOSE  = docker compose -f srcs/docker-compose.yml
-DATA_DIR = /home/$(USER)/data
+-include srcs/.env
+DATA_DIR = 
+
+MARIADB_DATA_PATH=
+WORDPRESS_DATA_PATH=
+
 
 .PHONY: all build up down stop start clean fclean re data
 
 all: data build up
 
 data:
-	mkdir -p $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
+	mkdir -p $(MARIADB_DATA_PATH) $(WORDPRESS_DATA_PATH)
 
 build:
 	$(COMPOSE) build
@@ -27,7 +32,10 @@ clean: down
 	$(COMPOSE) down --rmi all --volumes --remove-orphans
 
 fclean: clean
-	sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
+	sudo rm -rf $(MARIADB_DATA_PATH) $(WORDPRESS_DATA_PATH)
+
+status: 
+	$(COMPOSE) ps
 
 eval:
 	docker stop $$(docker ps -qa) 2>/dev/null || true
