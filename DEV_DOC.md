@@ -18,11 +18,12 @@
 make
 
 ## Commands utils
-make up
-make down
-make status
-make fclean
-make re
+make up     *start all services*
+make down   *stop all services*
+make status *check all status*
+make clean  *stop container, delete all images, named volumes and orphans*
+make fclean *clean + delete data inside bind mounted volumes*
+make re     *remove all and rebuilt new one*
 
 ## Without make
 cd srcs

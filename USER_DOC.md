@@ -24,3 +24,6 @@ secrets folder :
 - secrets/wp_admin_password.txt
 - secrets/wp_user_password.txt
 
+## Wordpress access
+- url is the *DOAMAIN_NAME* variable in `srcs/.env`
+- admin pannel is accessible from $(DOAMAIN_NAME)/wp-admin or $(DOAMAIN_NAME)/wp-login.php
