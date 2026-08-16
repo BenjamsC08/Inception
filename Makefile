@@ -1,10 +1,5 @@
 COMPOSE  = docker compose -f srcs/docker-compose.yml
 -include srcs/.env
-DATA_DIR = 
-
-MARIADB_DATA_PATH=
-WORDPRESS_DATA_PATH=
-
 
 .PHONY: all build up down stop start clean fclean re data
 
