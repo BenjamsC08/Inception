@@ -35,10 +35,10 @@ the root of the project, all containers need to use a docker-network to communic
 
 #### Virtual machines vs Docker
 The main difference is their weight, a virtual machine is really heavy, and vm are really human-usage focused where the docker (or containers in general) are more lightweight and service-focused.
-Docker image are built in layers: each [instructions](https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/#common-instructions) in a Dockerfile adds a new layer. If a Dockerfile is modified, Docker will rebuild from the modified layer to the end of the Docker file (that's why we put apt update and apt install in the same layer).
+Docker image are built in layers, each [instructions](https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/#common-instructions) in a Dockerfile adds a new layer. If a Dockerfile is modified, Docker will rebuild from the modified layer to the end of the Docker file (that's why we put apt update and apt install in the same layer).
 
 #### Secrets vs Environment Variables
-Environment variables are accessible from all processes within the container and can be viewed using `docker inspect`; all child processes inherit these variables. Secrets are mounted into the container via `tmpfs`; child processes cannot access this file. There is no incompatibility; these two mechanisms work well together.
+Environment variables are accessible from all processes within the container and can be viewed using `docker inspect`, all child processes inherit these variables. Secrets are mounted into the container via `tmpfs` child processes cannot access this file. There is no incompatibility; these two mechanisms work well together.
 
 #### Docker Network vs Host Network
 The main difference is that a Host Network will use the ip of the host, but in a Docker Network it will have its own. Docker Network will really isolate the container. With Docker Network, you can use different port inside and outside of the docker, (ex: you can use 8080 outside so all devices on my host network will see it on this port, but inside the docker the service provided will used 80). Communication between containers is faster and smoother inside a Docker network because they can reach each other directly by IP. On the host network they all share localhost.
@@ -77,4 +77,4 @@ If you wanna dig more feel free to check
 - [Containerization and lot of docker data](https://blog.stephane-robert.info/docs/conteneurisation/)
 
 ### IA USAGE
-AI was used to search for docs and cross information from forums; it also helped me correct certain initialization scripts particularly the WordPress one and likely helped with proofreading, even though scribens.fr doesn't explicitly state that it uses AI. Also helped me to reformulate this README.
+AI was used to search for docs and cross information from forums, it also helped me correct certain initialization scripts particularly the WordPress one and likely helped with proofreading, even though scribens.fr doesn't explicitly state that it uses AI. Also helped me to reformulate this README.
